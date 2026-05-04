@@ -199,10 +199,12 @@ struct ItemCard: View {
                     .minimumScaleFactor(0.95)
 
                 VStack(spacing: 13) {
-                    Button("Mark Paid") {
-                        viewModel.markPaid(item: item)
+                    if item.amountOwed > 0 {
+                        Button("Mark Paid") {
+                            viewModel.markPaid(item: item)
+                        }
+                        .buttonStyle(SmallTeacupButtonStyle())
                     }
-                    .buttonStyle(SmallTeacupButtonStyle())
 
                     HStack(spacing: 12) {
                         Button("View") {

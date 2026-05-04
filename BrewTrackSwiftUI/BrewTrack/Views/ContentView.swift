@@ -23,49 +23,21 @@ struct ContentView: View {
                     } else {
                         tabBar
 
-                        ScrollViewReader { scrollProxy in
-                            ZStack(alignment: .bottomTrailing) {
-                                ScrollView(.vertical, showsIndicators: true) {
-                                    LazyVStack(spacing: 18) {
-                                        Color.clear
-                                            .frame(height: 1)
-                                            .id("scrollTop")
-
-                                        currentScreen
-
-                                        Color.clear
-                                            .frame(height: compactPhone ? 120 : 40)
-                                            .id("scrollBottom")
-                                    }
-                                    .padding(.horizontal, compactPhone ? 18 : 32)
-                                    .padding(.top, compactPhone ? 22 : 18)
-                                    .padding(.bottom, compactPhone ? 280 : 96)
-                                    .frame(maxWidth: .infinity, alignment: .top)
-                                    .contentShape(Rectangle())
-                                }
-                                .coordinateSpace(name: "mainInventoryScroll")
-                                .scrollDisabled(false)
-                                .scrollIndicators(.visible)
-                                .scrollDismissesKeyboard(.interactively)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-                                VStack(spacing: 10) {
-                                    scrollJumpButton(systemName: "chevron.up") {
-                                        withAnimation(.easeInOut(duration: 0.25)) {
-                                            scrollProxy.scrollTo("scrollTop", anchor: .top)
-                                        }
-                                    }
-
-                                    scrollJumpButton(systemName: "chevron.down") {
-                                        withAnimation(.easeInOut(duration: 0.25)) {
-                                            scrollProxy.scrollTo("scrollBottom", anchor: .bottom)
-                                        }
-                                    }
-                                }
-                                .padding(.trailing, compactPhone ? 12 : 20)
-                                .padding(.bottom, compactPhone ? 34 : 22)
+                        ScrollView(.vertical, showsIndicators: true) {
+                            LazyVStack(spacing: 18) {
+                                currentScreen
                             }
+                            .padding(.horizontal, compactPhone ? 18 : 32)
+                            .padding(.top, compactPhone ? 22 : 18)
+                            .padding(.bottom, compactPhone ? 180 : 96)
+                            .frame(maxWidth: .infinity, alignment: .top)
+                            .contentShape(Rectangle())
                         }
+                        .coordinateSpace(name: "mainInventoryScroll")
+                        .scrollDisabled(false)
+                        .scrollIndicators(.visible)
+                        .scrollDismissesKeyboard(.interactively)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
                 .frame(
@@ -221,19 +193,6 @@ struct ContentView: View {
             .padding(.bottom, 8)
         }
         .background(AppTheme.latteLight)
-    }
-
-    private func scrollJumpButton(systemName: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Image(systemName: systemName)
-                .font(.system(size: 18, weight: .bold))
-                .foregroundStyle(.white)
-                .frame(width: 46, height: 46)
-                .background(AppTheme.teacup)
-                .clipShape(Circle())
-                .shadow(color: Color.black.opacity(0.14), radius: 8, x: 0, y: 4)
-        }
-        .buttonStyle(.plain)
     }
 
     @ViewBuilder
